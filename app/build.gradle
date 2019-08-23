@@ -21,6 +21,12 @@ android {
             }
         }
     }
+
+    sourceSets {
+        //数据库概要、记录存放位置
+        androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
+    }
+
     buildTypes {
         buildTypes {
             release {
@@ -57,6 +63,9 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1'
 
+    //微信开源库，代替sp
+    implementation 'com.tencent:mmkv:1.0.19'
+
     //androidX
     implementation 'androidx.core:core:1.0.2'
     implementation 'androidx.appcompat:appcompat:1.0.2'
@@ -66,7 +75,7 @@ dependencies {
     implementation 'androidx.fragment:fragment:1.0.0'
 
     //mvp core
-    implementation 'com.github.cn-ljb:kotlin-mvp-lib:1.2.0'
+    implementation 'com.github.cn-ljb:kotlin-mvp-lib:1.2.1'
 //网络库lib、数据库lib 根据项目实际情况引入
 //net lib
     implementation 'com.github.cn-ljb:netlib:1.0.1'

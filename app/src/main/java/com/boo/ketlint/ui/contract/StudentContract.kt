@@ -1,6 +1,8 @@
 package com.boo.ketlint.ui.contract
 
 import com.boo.ketlint.sql.stu.Student
+import com.ljb.mvp.kotlin.domain.Follower
+import com.ljb.mvp.kotlin.domain.User
 import io.reactivex.Observable
 import mvp.ljb.kt.contract.IModelContract
 import mvp.ljb.kt.contract.IPresenterContract
@@ -25,5 +27,7 @@ interface StudentContract {
 
     interface IModel : IModelContract {
         fun getId(id: Int): Observable<Student>
+//        fun getFollowers(page: Int): Observable<MutableList<Follower>>
+
     }
 }

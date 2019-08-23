@@ -1,12 +1,12 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 1,
-    "identityHash": "d107f67c7b4cae163746d52eac12cec9",
+    "version": 6,
+    "identityHash": "92fafa8f0d17c0994d5e3a61c3d4435c",
     "entities": [
       {
         "tableName": "Student",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`studentID` INTEGER PRIMARY KEY AUTOINCREMENT, `s_name` TEXT, `s_age` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`studentID` INTEGER PRIMARY KEY AUTOINCREMENT, `s_name` TEXT, `s_age` INTEGER, `s_sex` INTEGER, `s_grade` INTEGER)",
         "fields": [
           {
             "fieldPath": "studentID",
@@ -25,6 +25,18 @@
             "columnName": "s_age",
             "affinity": "INTEGER",
             "notNull": false
+          },
+          {
+            "fieldPath": "sex",
+            "columnName": "s_sex",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "studentGrade",
+            "columnName": "s_grade",
+            "affinity": "INTEGER",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -38,7 +50,7 @@
       },
       {
         "tableName": "Teacher",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`teacherID` INTEGER PRIMARY KEY AUTOINCREMENT, `t_name` TEXT, `t_year` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`teacherID` INTEGER PRIMARY KEY AUTOINCREMENT, `t_name` TEXT, `t_year` INTEGER, `t_grade` INTEGER, `t_time` INTEGER)",
         "fields": [
           {
             "fieldPath": "teacherID",
@@ -55,6 +67,18 @@
           {
             "fieldPath": "teachYear",
             "columnName": "t_year",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "teachGrade",
+            "columnName": "t_grade",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "teachTime",
+            "columnName": "t_time",
             "affinity": "INTEGER",
             "notNull": false
           }
@@ -104,7 +128,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd107f67c7b4cae163746d52eac12cec9')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '92fafa8f0d17c0994d5e3a61c3d4435c')"
     ]
   }
 }

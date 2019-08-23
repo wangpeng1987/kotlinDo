@@ -13,6 +13,10 @@ data class Teacher(
     var teacherName: String?,
     //教学年限
     @ColumnInfo(name = "t_year")
-    var teachYear: Int?
+    var teachYear: Int?,
+    @ColumnInfo(name = "t_grade")
+    var teachGrade: Int?,
+    @ColumnInfo(name = "t_time")
+    var teachTime: Int?
 
 )

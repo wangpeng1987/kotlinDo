@@ -51,7 +51,7 @@ class WebActivity : BaseMvpActivity<WebViewContract.IPresenter>(), WebViewContra
         iv_back.setOnClickListener { onBackPressed() }
         mProxy = WebViewProxy(this, webview, object : SimpleWebActionCallBack() {
             override fun onReceivedTitle(view: WebView?, title: String?) {
-                if (TextUtils.isEmpty(mTitle)) tv_title.text = title
+              //  if (TextUtils.isEmpty(mTitle)) tv_title.text = title
             }
 
             override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {

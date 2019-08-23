@@ -10,11 +10,17 @@ import com.boo.ketlint.net.DataLoader
 import com.boo.ketlint.sql.base.AppDataBase
 import com.boo.ketlint.sql.stu.Student
 import com.boo.ketlint.sql.stu.StudentDao
+import com.boo.ketlint.sql.tea.Teacher
+import com.boo.ketlint.sql.tea.TeacherDao
+import com.boo.ketlint.sql.video.Video
+import com.boo.ketlint.sql.video.VideoDao
 import com.boo.ketlint.ui.view.act.WebActivity
 import com.boo.ketlint.ui.view.act.StudentActivity
 import com.boo.ketlint.util.AppUtils
 import com.boo.ketlint.util.AppUtils.ACTIVITY_ALIAS_1
 import com.boo.ketlint.util.AppUtils.ACTIVITY_ALIAS_2
+import com.ljb.mvp.kotlin.img.ImageLoader
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
 import org.jetbrains.anko.doAsync
@@ -35,14 +41,14 @@ class MainActivity : AppCompatActivity() {
 
         textview1.text = "katlin test";
         button.text = "测试";
-        imageView.setImageResource(R.mipmap.ic_launcher_round)
+
+        ImageLoader.load(this, R.mipmap.ic_launcher_round, imageView, ImageLoader.getRoundRequest(10, RoundedCornersTransformation.CornerType.ALL))
 
         getGanksNewsList()
-        doDatabasee()
 
-        for (i in 0..30) {
-            downloadFile(i)
-        }
+//        for (i in 0..30) {
+//            downloadFile(i)
+//        }
 
 //        toast(sums(6).toString())
 //        toast(string2)
@@ -83,6 +89,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         imageView.setOnClickListener({
+            doDatabasee()
             if (icon.equals("")) {
                 toast("ACTIVITY_ALIAS_1")
                 icon = ACTIVITY_ALIAS_1
@@ -97,6 +104,10 @@ class MainActivity : AppCompatActivity() {
                 AppUtils.setIcon(ACTIVITY_ALIAS_1)
             }
         })
+
+
+        doDatabasee()
+
 
     }
 
@@ -122,14 +133,41 @@ class MainActivity : AppCompatActivity() {
 
     private fun doDatabasee() = doAsync {
         val sDao: StudentDao = AppDataBase.instance.getStudentDao()
-        val s_1 = Student(1, "s1", 10)
-        val sList: MutableList<Student> = mutableListOf()
-        sList.add(s_1)
+//        val s_1 = Student(1, "s1", 10,1)
+//        val sList: MutableList<Student> = mutableListOf()
+//        sList.add(s_1)
 //可以直接把list传进去，也可以一个一个单独添加
-        sDao.insertAll(sList)
+//        sDao.insertAll(sList)
         val sList_select_1: MutableList<Student> = sDao.getAllStudents()
+        LOGS.e("sql student size : " + sList_select_1.size)
         sList_select_1.indices.forEach {
-            LOGS.e("sql : " + sList_select_1.get(it))
+            LOGS.e("sql student : " + sList_select_1.get(it))
+        }
+
+        val tDao: TeacherDao = AppDataBase.instance.getTeacherDao()
+//        val s_1 = Student(1, "s1", 10,1)
+//        val sList: MutableList<Student> = mutableListOf()
+//        sList.add(s_1)
+//可以直接把list传进去，也可以一个一个单独添加
+//        sDao.insertAll(sList)
+        val tList_select_1: MutableList<Teacher> = tDao.getAllTeachers()
+        LOGS.e("sql teacher size : " + tList_select_1.size)
+        tList_select_1.indices.forEach {
+            LOGS.e("sql teacher : " + tList_select_1.get(it))
+        }
+
+        val vDao: VideoDao = AppDataBase.instance.getVideoDao()
+        val v_1 = Video(1,"bendi 1 ", "url1")
+
+        val vList: MutableList<Video> = mutableListOf()
+        vList.add(v_1)
+//可以直接把list传进去，也可以一个一个单独添加
+//       vDao.insertAll(vList)
+
+        val vList_select_1: MutableList<Video> = vDao.getAllVideos()
+        LOGS.e("sql video size : " + vList_select_1.size)
+        vList_select_1.indices.forEach {
+            LOGS.e("sql video: " + vList_select_1.get(it))
         }
 
         AppUtils.setIcon(ACTIVITY_ALIAS_2)
@@ -139,12 +177,13 @@ class MainActivity : AppCompatActivity() {
         LOGS.e("downloadFile : " + i)
         GlobalScope.launch(Dispatchers.Main) {
             val randoms = (0..30).random()
+            val randomsSex= (0..2).random()
             async(Dispatchers.IO) { delay(randoms * 1000L) }.await()
             val sDao: StudentDao = AppDataBase.instance.getStudentDao()
             val sList: MutableList<Student> = mutableListOf()
-            val s_1 = Student(i, "s" + i, i)
-            sList.add(s_1)
-            sDao.insertAll(sList)
+//            val s_1 = Student(i, "s" + i, i,randomsSex,1)
+//            sList.add(s_1)
+//            sDao.insertAll(sList)
             val sList_select_1: Student = sDao.getStudnetName("s" + i)
             LOGS.e("downloadFile : " + sList_select_1)
             if (i == 25) {
