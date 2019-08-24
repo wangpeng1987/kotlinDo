@@ -1,8 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">ketlint</string>
+    <string name="app_name">每日开源推荐</string>
     <string name="app_name1">ketlint1</string>
     <string name="app_name2">ketlint2</string>
-
+    <string name="ymAppKey">5d61025a3fc19532ad0004a4</string>
+    <string name="ymSecret">d564f293f2e6f6fa1794c189e9f2a5e4</string>
+    <string name="appSecret">uezgatj0o3uy4gwdhriihxwbmaugtldo</string>
 
     <string name="github_user">github username</string>
     <string name="login">Login</string>

@@ -1,36 +1,38 @@
 package com.boo.ketlint.ui.view.act
 
+import android.content.ClipboardManager
 import android.content.Context
-import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.View
 import android.webkit.WebView
 import com.boo.ketlint.LOGS
 import com.boo.ketlint.R
 import com.boo.ketlint.ui.contract.WebViewContract
 import com.boo.ketlint.ui.presenter.WebViewPresenter
 import com.boo.ketlint.widget.webview.SimpleWebActionCallBack
+import com.boo.ketlint.widget.webview.WebViewProxy
 import com.ljb.page.PageState
 import kotlinx.android.synthetic.main.activity_web.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.layout_web.*
 import mvp.ljb.kt.act.BaseMvpActivity
-import com.boo.ketlint.widget.webview.WebViewProxy
+import org.jetbrains.anko.toast
 
 class WebActivity : BaseMvpActivity<WebViewContract.IPresenter>(), WebViewContract.IView {
 
-    companion object {
-        private const val KEY_URL = "webUrl"
-        private const val KEY_TITLE = "webTitle"
-
-        fun startActivity(context: Context, url: String, title: String = "") {
-            val intent = Intent(context, WebActivity::class.java)
-            intent.putExtra(KEY_URL, url)
-            intent.putExtra(KEY_TITLE, title)
-            context.startActivity(intent)
-        }
-    }
+//    companion object {
+//        private const val KEY_URL = "webUrl"
+//        private const val KEY_TITLE = "webTitle"
+//
+//        fun startActivity(context: Context, url: String, title: String = "") {
+//            val intent = Intent(context, WebActivity::class.java)
+//            intent.putExtra(KEY_URL, url)
+//            intent.putExtra(KEY_TITLE, title)
+//            context.startActivity(intent)
+//        }
+//    }
 
     private var mTitle: String? = null
     private var mUrl: String? = null
@@ -43,12 +45,14 @@ class WebActivity : BaseMvpActivity<WebViewContract.IPresenter>(), WebViewContra
     override fun init(savedInstanceState: Bundle?) {
 //        mTitle = intent.getStringExtra(KEY_TITLE)
         mUrl = intent.getStringExtra("url")
-        LOGS.e("WebActivity" + mUrl)
+        LOGS.e("WebActivity : " + mUrl)
         if (TextUtils.isEmpty(mUrl)) finish()
     }
 
     override fun initView() {
         iv_back.setOnClickListener { onBackPressed() }
+        tv_copy.visibility = View.VISIBLE
+        tv_copy.setOnClickListener { toCopy() }
         mProxy = WebViewProxy(this, webview, object : SimpleWebActionCallBack() {
             override fun onReceivedTitle(view: WebView?, title: String?) {
                 if (TextUtils.isEmpty(mTitle)) tv_title.text = title
@@ -64,6 +68,16 @@ class WebActivity : BaseMvpActivity<WebViewContract.IPresenter>(), WebViewContra
                 page_layout.setPage(PageState.STATE_SUCCESS)
             }
         })
+    }
+
+    //把搜索链接写入剪切板
+    private fun toCopy() {
+// 从API11开始android推荐使用android.content.ClipboardManager
+        // 为了兼容低版本我们这里使用旧版的android.text.ClipboardManager，虽然提示deprecated，但不影响使用。
+        val cm = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        // 将文本内容放到系统剪贴板里。
+        cm.setText(mUrl)
+        toast("链接已写入剪切板！")
     }
 
     override fun initData() {

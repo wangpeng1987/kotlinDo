@@ -5,7 +5,7 @@ import com.boo.ketlint.ui.model.WebViewModel
 import mvp.ljb.kt.presenter.BaseMvpPresenter
 
 /**
- * @Author:Kotlin MVP Plugin
+ * @Author:wop
  * @Date:2019/04/20
  * @Description input description
  **/

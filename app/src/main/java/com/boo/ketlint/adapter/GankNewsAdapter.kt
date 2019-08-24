@@ -24,8 +24,8 @@ class GankNewsAdapter(val items: List<GankNews>, val itemClickListener: (GankNew
 
     class ViewHolder(val view: View, val itemClickListener: (GankNews) -> Unit) : RecyclerView.ViewHolder(view) {
         fun bind(news: GankNews) {
-            view.title.text = "title:" + news.desc
-            view.desc.text = "desc:" + news.type
+            view.title.text = "分类 :" + news.type
+            view.desc.text = "简介 :" + news.desc
             view.setOnClickListener {
                 itemClickListener(news)
             }

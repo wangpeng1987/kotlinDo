@@ -1,10 +1,17 @@
 package com.boo.ketlint
 
+import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.boo.ketlint.widget.dialog.LoadingDialog
+import com.umeng.message.PushAgent
 
 open class BaseActivity : AppCompatActivity() {
     private val mLoadingDialog by lazy { LoadingDialog(this) }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        PushAgent.getInstance(this).onAppStart();
+    }
 
     fun dismissLoadDialog() {
         mLoadingDialog.dismiss()

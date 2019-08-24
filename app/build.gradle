@@ -1,17 +1,39 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
     buildToolsVersion "29.0.1"
+
+//签名
+    signingConfigs {
+        googleplayRelease {
+            storeFile file('clipmaxre')
+            storePassword "clipmaxre123"
+            keyAlias "clipmax"
+            keyPassword "clipmaxre123"
+        }
+        debug {
+            storeFile file('debug.keystore')
+            storePassword "android"
+            keyAlias "androiddebugkey"
+            keyPassword "android"
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
     defaultConfig {
         applicationId "com.boo.ketlint"
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         javaCompileOptions {
@@ -20,24 +42,101 @@ android {
                                      "$projectDir/schemas".toString()]
             }
         }
+
+        ndk {
+//              abiFilters 'x86', 'armeabi', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+            abiFilters 'armeabi-v7a', 'arm64-v8a'
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+
+    buildTypes {
+        debug {
+            versionNameSuffix ""
+            signingConfig signingConfigs.debug
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            debuggable true    //默认false，可不写
+        }
+
+        release {
+            minifyEnabled false //打开混淆；
+            zipAlignEnabled false // Zipalign优化
+            shrinkResources false //打开资源压缩。
+            versionNameSuffix ""
+            signingConfig signingConfigs.googleplayRelease
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "boolean", "LOG_DEBUG", "false" //不显示log日志
+            debuggable false    //默认false，可不写
+        }
+
+        applicationVariants.all { variant ->
+            variant.outputs.all { output ->
+                def flavor = variant.productFlavors[0]
+//                variant.buildConfigField "String", "BaseUrl", "\"${flavor.ext.base_server[variant.buildType.name]}\""
+//                variant.buildConfigField "String", "google_sub", "\"${flavor.ext.base_google_sub_server[variant.buildType.name]}\""
+//                variant.buildConfigField "String", "uploadUrl", "\"${flavor.ext.base_upload_server[variant.buildType.name]}\""
+
+//                variant.buildConfigField "String", "WEST2_API_KEY", "\"a9b1d87141564adfa4b9f4ad012421c5\""
+//                variant.buildConfigField "String", "WEST2_REGION", "\"westus2\""
+//                variant.buildConfigField "String", "WEST2_TOKEN_URL", "\"https://westus2.api.cognitive.microsoft.com/sts/v1.0/issueToken\""
+//                variant.buildConfigField "String", "WEST2_API_URL", "\"https://westus2.tts.speech.microsoft.com/cognitiveservices/v1\""
+//
+//                variant.buildConfigField "String", "NOT_WEST2_API_KEY", "\"551e41cae3e64814b73b071fc1bff1b3\""
+//                variant.buildConfigField "String", "NOT_WEST2_REGION", "\"eastus\""
+//                variant.buildConfigField "String", "NOT_WEST2_TOKEN_URL", "\"https://eastus.api.cognitive.microsoft.com/sts/v1.0/issuetoken\""
+//                variant.buildConfigField "String", "NOT_WEST2_API_URL", "\"https://eastus.tts.speech.microsoft.com/cognitiveservices/v1\""
+
+                def fileName = "wop${variant.versionName}_" + "${variant.flavorName}_" + "${variant.buildType.name}.apk"
+                outputFileName = fileName
+            }
+        }
+    }
+
+    flavorDimensions("channel")
+    productFlavors {
+        google {
+//            versionName "1.0.0"
+            dimension "channel"
+//            manifestPlaceholders = [icon: "@mipmap/logo"]
+            ext {
+//                base_server = [debug: "http://api.tools.boochat.cn", release: "https://api.tools.boo.chat"]
+//                base_google_sub_server = [debug: "http://api.tools.boochat.cn/", release: "https://api.tools.boo.chat/"]
+//                base_upload_server = [debug: "http://sandbox-upload.boochat.cn/", release: "https://upload.boo.chat/"]
+            }
+        }
     }
 
     sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+            jni.srcDirs = []
+        }
         //数据库概要、记录存放位置
         androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
     }
 
-    buildTypes {
-        buildTypes {
-            release {
-                buildConfigField("boolean", "VERSION_DEBUG", "false")
-                minifyEnabled false
-                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            }
-            debug {
-                buildConfigField("boolean", "VERSION_DEBUG", "true")
-            }
-        }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
+    lintOptions {
+        abortOnError false
+        // 防止在发布的时候出现因MissingTranslation导致Build Failed!
+        disable 'MissingTranslation'
+    }
+    dexOptions {
+        preDexLibraries false
+        maxProcessCount 8 // this is the default value
+//        incremental false
+        javaMaxHeapSize "8g"
+//        javaMaxHeapSize "3072m"
     }
 }
 
@@ -91,10 +190,21 @@ dependencies {
     //glide
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     implementation 'com.github.bumptech.glide:annotations:4.9.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    kapt 'com.github.bumptech.glide:compiler:4.9.0'
     implementation 'com.github.bumptech.glide:okhttp3-integration:4.7.1'
     implementation 'jp.wasabeef:glide-transformations:3.3.0'
     //smarttablayout:
     implementation 'com.ogaclejapan.smarttablayout:library:2.0.0@aar'
+
+    implementation 'cn.yc:YCStateLib:1.1.9'
+
+    implementation 'com.umeng.umsdk:analytics:8.0.0'
+    implementation 'com.umeng.umsdk:common:2.0.0'
+    //PushSDK必须依赖基础组件库，所以需要加入对应依赖
+    implementation 'com.umeng.umsdk:common:2.0.0'
+//PushSDK必须依赖utdid库，所以需要加入对应依赖
+    implementation 'com.umeng.umsdk:utdid:1.1.5.3'
+//PushSDK
+    implementation 'com.umeng.umsdk:push:6.0.1'
 
 }

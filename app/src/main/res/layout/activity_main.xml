@@ -8,28 +8,14 @@
         android:orientation="vertical"
         tools:context=".MainActivity">
 
-    <TextView
-            android:id="@+id/textview1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello World!"/>
 
-    <Button
-            android:text="Button"
+    <include layout="@layout/layout_common_title" />
+
+    <com.ljb.page.PageStateLayout
+            android:id="@+id/page_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/button"/>
-
-    <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center"
-            tools:srcCompat="@tools:sample/avatars"
-            android:id="@+id/imageView"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:id="@+id/recylerview"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            app:page_content="@layout/activity_main_content"
+            app:page_load="@layout/layout_page_load" />
 
 </LinearLayout>

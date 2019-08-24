@@ -19,23 +19,23 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 object ImageLoader {
 
     private val mDefRequestOptions = RequestOptions()
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .placeholder(R.color.bg_page)
-            .error(R.color.bg_page)
+        .diskCacheStrategy(DiskCacheStrategy.NONE)
+        .placeholder(R.color.bg_page)
+        .error(R.color.bg_page)
 
     private val mCircleRequestOptions = RequestOptions
-            .circleCropTransform()
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .placeholder(R.color.bg_page)
-            .error(R.color.bg_page)
+        .circleCropTransform()
+        .diskCacheStrategy(DiskCacheStrategy.NONE)
+        .placeholder(R.color.bg_page)
+        .error(R.color.bg_page)
 
 
     fun getRoundRequest(radius: Int, type: RoundedCornersTransformation.CornerType): RequestOptions {
         return RequestOptions
-                .bitmapTransform(RoundedCornersTransformation(radius, 0, type))
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.color.bg_page)
-                .error(R.color.bg_page)
+            .bitmapTransform(RoundedCornersTransformation(radius, 0, type))
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .placeholder(R.color.bg_page)
+            .error(R.color.bg_page)
     }
 
     fun getCircleRequest(): RequestOptions {
@@ -43,8 +43,10 @@ object ImageLoader {
     }
 
 
-    fun load(context: Context, url: String?, img: ImageView,
-             request: RequestOptions = mDefRequestOptions) {
+    fun load(
+        context: Context, url: String?, img: ImageView,
+        request: RequestOptions = mDefRequestOptions
+    ) {
         if (url == null) return
         checkContext(context)
         val imgUrl = nvlUrl(url)
@@ -52,8 +54,10 @@ object ImageLoader {
     }
 
 
-    fun load(context: Context, resId: Int?, img: ImageView,
-             request: RequestOptions = mDefRequestOptions) {
+    fun load(
+        context: Context, resId: Int?, img: ImageView,
+        request: RequestOptions = mDefRequestOptions
+    ) {
         if (resId == null || resId == 0) return
         checkContext(context)
         Glide.with(context).load(resId).apply(request).into(img)
@@ -86,6 +90,25 @@ object ImageLoader {
             override fun onResourceReady(bitmap: Bitmap, transition: Transition<in Bitmap>?) = callBack.invoke(bitmap)
 
         })
+    }
+
+    /**
+     * 清除图片磁盘缓存
+     */
+    fun clearImageDiskCache(context: Context) {
+        try {
+            if (Looper.myLooper() == Looper.getMainLooper()) {
+                Thread(Runnable {
+                    Glide.get(context).clearDiskCache()
+                    // BusUtil.getBus().post(new GlideCacheClearSuccessEvent());
+                }).start()
+            } else {
+                Glide.get(context).clearDiskCache()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
     }
 
 
