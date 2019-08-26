@@ -5,12 +5,8 @@ import com.boo.ketlint.sql.base.AppDataBase
 import com.boo.ketlint.sql.stu.Student
 import com.boo.ketlint.sql.stu.StudentDao
 import com.boo.ketlint.ui.contract.StudentContract
-import com.ljb.mvp.kotlin.domain.Follower
-import com.ljb.mvp.kotlin.domain.User
-import com.ljb.mvp.kotlin.protocol.http.IUserHttpProtocol
 import io.reactivex.Observable
 import mvp.ljb.kt.model.BaseModel
-import net.ljb.kt.client.HttpFactory
 
 /**
  * @Author wop

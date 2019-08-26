@@ -4,13 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View.INVISIBLE
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
+import android.widget.Toast
+import androidx.recyclerview.widget.*
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.boo.ketlint.adapter.GankNewsAdapter
 import com.boo.ketlint.net.DataLoader
+import com.boo.ketlint.net.GankNews
 import com.boo.ketlint.ui.view.act.WebActivity
-import com.ljb.mvp.kotlin.img.ImageLoader
+import com.boo.ketlint.widget.img.ImageLoader
 import com.ljb.page.PageState
 import com.umeng.commonsdk.statistics.common.DeviceConfig
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation
@@ -20,8 +21,11 @@ import kotlinx.android.synthetic.main.layout_common_title.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
-
 class MainActivity : BaseActivity() {
+
+    var pageNum: Int = 0
+    var news: List<GankNews>? = null
+    var newsAll: MutableList<GankNews>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +34,8 @@ class MainActivity : BaseActivity() {
         page_layout.setPage(PageState.STATE_LOADING)
         iv_back.visibility = INVISIBLE
         tv_title.text = getText(R.string.app_name)
+
+        newsAll = mutableListOf()
 
         ImageLoader.clearImageDiskCache(this)
 
@@ -49,6 +55,22 @@ class MainActivity : BaseActivity() {
             ImageLoader.getRoundRequest(10, RoundedCornersTransformation.CornerType.ALL)
         )
 
+        recylerview.setListener(object : RecyclerListener {
+            override fun loadMore() {
+                if (news == null || news.isNullOrEmpty()) return
+                if (news!!.size == 0) {
+                    Toast.makeText(applicationContext, "没有更多数据了~", Toast.LENGTH_SHORT).show()
+                } else {
+                    pageNum++
+                    getGanksNewsList()
+                }
+            }
+
+            override fun refresh() {
+                pageNum = 0
+                getGanksNewsList()
+            }
+        })
         getGanksNewsList()
 
         getTestDeviceInfo(this)
@@ -128,7 +150,6 @@ class MainActivity : BaseActivity() {
             }
         } catch (e: Exception) {
         }
-
         return deviceInfo
     }
 
@@ -137,21 +158,94 @@ class MainActivity : BaseActivity() {
     private fun sums(a: Int = 0, b: Int = 0) = a + b
 
     private fun getGanksNewsList() = doAsync {
-        val news = DataLoader().getGankNewsList("data/all/20/2")
+        //        val randoms = (0..479).random()
+        news = DataLoader().getGankNewsList("data/all/20/" + pageNum)
+        newsAll?.addAll(news!!)
         uiThread {
             //            toast("获取网络数据")
             recylerview.layoutManager = LinearLayoutManager(this@MainActivity)
             page_layout.setPage(PageState.STATE_SUCCESS)
             //添加Android自带的分割线
             recylerview.addItemDecoration(DividerItemDecoration(this@MainActivity, DividerItemDecoration.VERTICAL))
-            recylerview.adapter = GankNewsAdapter(news) {
-                val intent = Intent()
-                intent.setClass(this@MainActivity, WebActivity::class.java)
+            if (newsAll != null) {
+                recylerview.adapter = GankNewsAdapter(newsAll!!) {
+                    val intent = Intent()
+                    intent.setClass(this@MainActivity, WebActivity::class.java)
 //                it.url = "https://wangpeng1987.github.io/AppServer/"
-                intent.putExtra("url", it.url)
-                startActivity(intent)
+                    intent.putExtra("url", it.url)
+                    startActivity(intent)
+                }
             }
         }
+    }
+
+    interface RecyclerListener {
+        fun loadMore()
+        fun refresh()
+    }
+
+    fun RecyclerView.setListener(l: RecyclerListener) {
+        setOnScrollListener(object : RecyclerView.OnScrollListener() {
+            var lastVisibleItem: Int = 0
+            val swipeRefreshLayout = this@setListener.parent
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val layoutManager: RecyclerView.LayoutManager = recyclerView.layoutManager!!
+
+                if (layoutManager is LinearLayoutManager) {
+                    lastVisibleItem = (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+                } else if (layoutManager is GridLayoutManager) {
+                    lastVisibleItem = (recyclerView.layoutManager as GridLayoutManager).findLastVisibleItemPosition()
+                } else if (layoutManager is StaggeredGridLayoutManager) {
+                    val staggeredGridLayoutManager = recyclerView.layoutManager as StaggeredGridLayoutManager
+                    val lastPositions = IntArray(staggeredGridLayoutManager.spanCount)
+                    staggeredGridLayoutManager.findLastVisibleItemPositions(lastPositions)
+                    lastVisibleItem = findMax(lastPositions)
+                }
+            }
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 == recyclerView.adapter?.itemCount) {
+                    //下拉刷新的时候不可以加载更多
+                    if (swipeRefreshLayout is SwipeRefreshLayout) {
+                        if (!swipeRefreshLayout.isRefreshing) {
+                            l.loadMore()
+                        }
+                    } else {
+                        l.loadMore()
+                    }
+                }
+            }
+
+        })
+
+        val swipeRefreshLayout = this.parent
+        if (swipeRefreshLayout is SwipeRefreshLayout) {
+            swipeRefreshLayout.setOnRefreshListener {
+                l.refresh()
+            }
+        }
+
+    }
+
+    /**
+     * 取数组中最大值
+     *
+     * @param lastPositions
+     * @return
+     */
+    fun findMax(lastPositions: IntArray): Int {
+        var max = lastPositions[0]
+        for (i in lastPositions.indices) {
+            val value = lastPositions[i]
+            if (value > max) {
+                max = value
+            }
+        }
+
+        return max;
     }
 //
 //    private fun doDatabasee() = doAsync {

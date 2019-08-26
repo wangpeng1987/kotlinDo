@@ -1,4 +1,4 @@
-package com.ljb.mvp.kotlin.common.rx
+package com.boo.ketlint.net2.rx
 
 import android.content.Context
 import io.reactivex.Observable

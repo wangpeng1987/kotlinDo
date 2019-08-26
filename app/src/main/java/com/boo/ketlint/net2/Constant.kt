@@ -1,4 +1,4 @@
-package com.ljb.mvp.kotlin.common
+package com.boo.ketlint.net2
 
 /**
  * 常量池
@@ -7,12 +7,13 @@ package com.ljb.mvp.kotlin.common
 object Constant {
 
     /** 服务器Host */
-    //https://wangpeng1987.github.io/AppServer/
-    const val HTTP_API_DOMAIN = "https://api.github.com"
+    const val HTTP_API_DOMAIN = " http://gank.io/api/"
 
-    /** GitHub接口身份验证 */
-    const val GITHUB_CLIENT_ID = "c68ea892fdebf06c418b"
-    const val GITHUB_CLIENT_SECRET = "e2cf54c4dd27c702ca1d218ff87cbfc8fc6daccf"
-
+    /**
+     * 权限Code
+     * */
+    object PermissionCode {
+        const val CODE_INIT = 0x00
+    }
 
 }

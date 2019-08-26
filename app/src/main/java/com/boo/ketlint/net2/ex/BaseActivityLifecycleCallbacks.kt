@@ -1,4 +1,4 @@
-package com.ljb.mvp.kotlin.common.ex
+package com.boo.ketlint.net2.ex
 
 import android.app.Activity
 import android.app.Application

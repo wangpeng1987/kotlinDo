@@ -13,15 +13,18 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".ui.view.act.HomeActivity"/>
         <activity android:name=".ui.view.act.WebActivity"/>
         <activity android:name=".ui.view.act.TeacherActivity"/>
         <activity android:name=".ui.view.act.StudentActivity"/>
-        <activity android:name="com.boo.ketlint.MainActivity">
+        <activity android:name=".ui.view.act.WelComeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name="com.boo.ketlint.MainActivity">
         </activity>
         <!--<activity-alias-->
                 <!--android:name="com.boo.ketlint.ActivityAlias1"-->

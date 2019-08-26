@@ -1,10 +1,10 @@
-package com.ljb.mvp.kotlin.common.rx
+package com.boo.ketlint.net2.rx
 
 import android.content.Context
 import android.widget.Toast
 import com.boo.ketlint.LOGS
-import com.ljb.mvp.kotlin.domain.GitHubHttpError
-import com.ljb.mvp.kotlin.utils.JsonParser
+import com.boo.ketlint.net2.domain.GitHubHttpError
+import com.boo.ketlint.util.JsonParser
 
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable

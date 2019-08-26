@@ -1,4 +1,4 @@
-package com.ljb.mvp.kotlin.domain
+package com.boo.ketlint.net2.domain
 
 
 /**

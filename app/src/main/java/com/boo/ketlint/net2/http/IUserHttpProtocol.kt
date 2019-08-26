@@ -1,12 +1,22 @@
-package com.ljb.mvp.kotlin.protocol.http
+package com.boo.ketlint.net2.http
 
-import com.ljb.mvp.kotlin.domain.*
+import com.boo.ketlint.net.GankNews
+import com.boo.ketlint.net2.domain.*
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface IUserHttpProtocol {
+
+    /**
+     * 获取 今日推荐
+     * */
+    @GET("today")
+    fun getToday(): Observable<MutableList<GankNews>>
+
+
+
     /**
      * 通过用户名获取用户信息
      * @param userName 用户名

@@ -2,6 +2,7 @@ package com.boo.ketlint.ui.view.act
 
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.text.TextUtils
@@ -22,17 +23,17 @@ import org.jetbrains.anko.toast
 
 class WebActivity : BaseMvpActivity<WebViewContract.IPresenter>(), WebViewContract.IView {
 
-//    companion object {
-//        private const val KEY_URL = "webUrl"
-//        private const val KEY_TITLE = "webTitle"
-//
-//        fun startActivity(context: Context, url: String, title: String = "") {
-//            val intent = Intent(context, WebActivity::class.java)
-//            intent.putExtra(KEY_URL, url)
-//            intent.putExtra(KEY_TITLE, title)
-//            context.startActivity(intent)
-//        }
-//    }
+    companion object {
+        private const val KEY_URL = "url"
+        private const val KEY_TITLE = "title"
+
+        fun startActivity(context: Context, url: String, title: String = "") {
+            val intent = Intent(context, WebActivity::class.java)
+            intent.putExtra(KEY_URL, url)
+            intent.putExtra(KEY_TITLE, title)
+            context.startActivity(intent)
+        }
+    }
 
     private var mTitle: String? = null
     private var mUrl: String? = null
@@ -43,8 +44,8 @@ class WebActivity : BaseMvpActivity<WebViewContract.IPresenter>(), WebViewContra
     override fun getLayoutId() = R.layout.activity_web
 
     override fun init(savedInstanceState: Bundle?) {
-//        mTitle = intent.getStringExtra(KEY_TITLE)
-        mUrl = intent.getStringExtra("url")
+        mTitle = intent.getStringExtra(KEY_TITLE)
+        mUrl = intent.getStringExtra(KEY_URL)
         LOGS.e("WebActivity : " + mUrl)
         if (TextUtils.isEmpty(mUrl)) finish()
     }

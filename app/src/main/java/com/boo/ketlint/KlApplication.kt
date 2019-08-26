@@ -1,14 +1,10 @@
 package com.boo.ketlint
 
 import android.app.Application
-import com.ljb.mvp.kotlin.common.Constant.GITHUB_CLIENT_ID
-import com.ljb.mvp.kotlin.common.Constant.GITHUB_CLIENT_SECRET
-import com.ljb.mvp.kotlin.common.Constant.HTTP_API_DOMAIN
+import com.boo.ketlint.net2.Constant.HTTP_API_DOMAIN
 import com.qmuiteam.qmui.arch.QMUISwipeBackActivityManager
 import com.umeng.analytics.MobclickAgent
 import com.umeng.commonsdk.UMConfigure
-import com.umeng.message.IUmengRegisterCallback
-import com.umeng.message.PushAgent
 import net.ljb.kt.HttpConfig
 import kotlin.properties.Delegates
 
@@ -30,11 +26,11 @@ class KlApplication : Application() {
     }
 
     private fun initNet() {
-        val paramMap = mapOf(
-            "client_id" to GITHUB_CLIENT_ID,
-            "client_secret" to GITHUB_CLIENT_SECRET
-        )
-        HttpConfig.init(HTTP_API_DOMAIN, paramMap, paramMap, BuildConfig.DEBUG)
+//        val paramMap = mapOf(
+//            "client_id" to GITHUB_CLIENT_ID,
+//            "client_secret" to GITHUB_CLIENT_SECRET
+//        )
+        HttpConfig.init(HTTP_API_DOMAIN, null, null, BuildConfig.DEBUG)
     }
 
     private fun initUm() {
@@ -53,19 +49,19 @@ class KlApplication : Application() {
         // 选用AUTO页面采集模式
         MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
 
-        //获取消息推送代理示例
-        val mPushAgent = PushAgent.getInstance(this)
-//注册推送服务，每次调用register方法都会回调该接口
-        mPushAgent.register(object : IUmengRegisterCallback {
-            override fun onSuccess(deviceToken: String) {
-                //注册成功会返回deviceToken deviceToken是推送消息的唯一标志
-                LOGS.e("注册成功：deviceToken：-------->  $deviceToken")
-            }
-
-            override fun onFailure(s: String, s1: String) {
-                LOGS.e("注册失败：-------->  s:$s,s1:$s1")
-            }
-        })
+//        //获取消息推送代理示例
+//        val mPushAgent = PushAgent.getInstance(this)
+////注册推送服务，每次调用register方法都会回调该接口
+//        mPushAgent.register(object : IUmengRegisterCallback {
+//            override fun onSuccess(deviceToken: String) {
+//                //注册成功会返回deviceToken deviceToken是推送消息的唯一标志
+//                LOGS.e("注册成功：deviceToken：-------->  $deviceToken")
+//            }
+//
+//            override fun onFailure(s: String, s1: String) {
+//                LOGS.e("注册失败：-------->  s:$s,s1:$s1")
+//            }
+//        })
     }
 
 

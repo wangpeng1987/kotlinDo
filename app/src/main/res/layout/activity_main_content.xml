@@ -22,12 +22,19 @@
             android:layout_gravity="center"
             android:id="@+id/imageView"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:id="@+id/recylerview"
-            android:layout_marginTop="20dp"
-            android:layout_height="match_parent"/>
+    <!--<androidx.support.v4.widget.SwipeRefreshLayout-->
+            <!--android:id="@+id/swipeRefreshLayout"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent">-->
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:id="@+id/recylerview"
+                android:layout_marginTop="20dp"
+                android:layout_height="match_parent"/>
+
+    <!--</androidx.support.v4.widget.SwipeRefreshLayout>-->
 
 </LinearLayout>

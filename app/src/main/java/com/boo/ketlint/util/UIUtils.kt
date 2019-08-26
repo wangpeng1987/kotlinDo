@@ -1,4 +1,4 @@
-package com.ljb.mvp.kotlin.utils
+package com.boo.ketlint.util
 
 import android.annotation.SuppressLint
 import android.content.Context
