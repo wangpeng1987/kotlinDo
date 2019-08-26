@@ -11,27 +11,16 @@
     <string name="tab2">搜索推荐</string>
     <string name="tab3">我</string>
 
-    <string name="github_user">github username</string>
-    <string name="login">Login</string>
-    <string name="input_user">Input github username</string>
-    <string name="net_error">Net Error</string>
-    <string name="logout">Logout</string>
-    <string name="events">Events</string>
-    <string name="starred">Starred</string>
-    <string name="followers">Followers</string>
+    <string name="net_error">网路错误，请检查网络连接</string>
+    <string name="reload">重新加载</string>
+    <string name="loading">加载中…</string>
+    <string name="load_error_click">加载失败请重试</string>
+    <string name="load_not_more">没有更多的数据了！</string>
+    <string name="exit_go_out">再次点击退出</string>
+
+
+
     <string name="load_error">Network Error</string>
-    <string name="reload">reload</string>
-    <string name="loading">loading…</string>
-    <string name="load_error_click">load failed , click retry</string>
-    <string name="load_not_more">no more data</string>
-    <string name="exit_go_out">double click to exit</string>
-    <string name="action">action:\t%s</string>
     <string name="cancel" tools:ignore="ButtonCase">Cancel</string>
     <string name="enter">Enter</string>
-    <string name="logout_user">Exit the current user?</string>
-    <string name="format_star">start: %s</string>
-    <string name="format_fork">fork: %s</string>
-    <string name="format_issues">issues: %s</string>
-    <string name="format_update">update: %s</string>
-    <string name="format_create">create: %s</string>
 </resources>

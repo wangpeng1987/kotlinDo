@@ -198,6 +198,8 @@ dependencies {
 
 //    implementation 'cn.yc:YCStateLib:1.1.9'
 
+    implementation "com.android.support:design:28.0.0"
+
     implementation 'com.umeng.umsdk:analytics:8.0.0'
     //PushSDK必须依赖基础组件库，所以需要加入对应依赖
     implementation 'com.umeng.umsdk:common:2.0.0'

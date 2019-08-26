@@ -34,7 +34,7 @@ class TodayPresenter : BaseMvpPresenter<TodayContract.IView, TodayContract.IMode
             .compose(RxUtils.schedulerIO2Main<Category>())
             .subscribeNet(getContextEx()) {
                 onNextEx {
-                    getMvpView().showPage(it.results.Android, page)
+                    getMvpView().showPage(it, page)
                     mPage++
                 }
                 onErrorEx { getMvpView().errorPage(it, page) }

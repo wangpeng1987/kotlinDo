@@ -1,19 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/bg_page"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/bg_page"
+              android:orientation="vertical">
 
+    <com.google.android.material.tabs.TabLayout
+            android:layout_width="match_parent"
+            android:id="@+id/tab_title"
+            android:layout_height="wrap_content">
+        <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:minWidth="120dp"
+                android:id="@+id/ti1"
+                android:layout_height="wrap_content"
+                android:text="Android"/>
+
+        <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:minWidth="120dp"
+                android:id="@+id/ti2"
+                android:layout_height="wrap_content"
+                android:text="App"/>
+
+        <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:id="@+id/ti3"
+                android:minWidth="120dp"
+                android:layout_height="wrap_content"
+                android:text="iOS"/>
+
+        <!--<com.google.android.material.tabs.TabItem-->
+                <!--android:id="@+id/ti4"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:minWidth="120dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="休息视频"/>-->
+
+        <com.google.android.material.tabs.TabItem
+                android:id="@+id/ti5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="120dp"
+                android:text="前端"/>
+
+        <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:minWidth="120dp"
+                android:id="@+id/ti6"
+                android:layout_height="wrap_content"
+                android:text="拓展资源"/>
+
+        <com.google.android.material.tabs.TabItem
+                android:minWidth="120dp"
+                android:layout_width="wrap_content"
+                android:id="@+id/ti7"
+                android:layout_height="wrap_content"
+                android:text="瞎推荐"/>
+
+        <!--<com.google.android.material.tabs.TabItem-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:minWidth="120dp"-->
+                <!--android:id="@+id/ti8"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="福利"/>-->
+    </com.google.android.material.tabs.TabLayout>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_D2D2D2"/>
 
     <com.ljb.page.PageStateLayout
-        android:id="@+id/page_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:page_content="@layout/activity_main_content"
-        app:page_empty="@layout/layout_page_empty"
-        app:page_error="@layout/layout_page_error"
-        app:page_load="@layout/layout_page_load" />
+            android:id="@+id/page_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:page_content="@layout/activity_main_content"
+            app:page_empty="@layout/layout_page_empty"
+            app:page_error="@layout/layout_page_error"
+            app:page_load="@layout/layout_page_load">
+    </com.ljb.page.PageStateLayout>
 
 </LinearLayout>
