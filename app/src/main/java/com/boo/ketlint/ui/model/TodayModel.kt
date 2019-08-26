@@ -1,6 +1,6 @@
 package  com.boo.ketlint.ui.model
 
-import com.boo.ketlint.net.GankNews
+import com.boo.ketlint.net.Category
 import com.boo.ketlint.net2.http.IUserHttpProtocol
 import com.boo.ketlint.ui.contract.TodayContract
 import io.reactivex.Observable
@@ -14,16 +14,9 @@ import net.ljb.kt.client.HttpFactory
  **/
 class TodayModel : BaseModel(), TodayContract.IModel {
 
-    override fun getToday(page:Int): Observable<MutableList<GankNews>> {
+    override fun getToday(page:Int): Observable<Category> {
         return HttpFactory.getProtocol(IUserHttpProtocol::class.java)
             .getToday()
-//        doAsync {
-//            var news: List<GankNews>? = DataLoader().getGankNewsList("data/all/20/" + page)
-//
-//        }
-//
-//        Observable.just(sList_select_1);
-
     }
 }
 

@@ -1,18 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
+              xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_marginTop="20dp"
               android:layout_marginBottom="20dp"
               android:layout_height="wrap_content">
+
+    <RelativeLayout android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+        <TextView
+                android:text="title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/title"/>
+
+        <TextView
+                android:text="createTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:id="@+id/createTime"/>
+    </RelativeLayout>
+
     <TextView
-            android:text="title"
+            android:text="author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/title"/>
+            android:id="@+id/author"/>
+
     <TextView
             android:text="desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/desc"/>
+
+    <HorizontalScrollView
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:gravity="center"
+                      android:orientation="vertical">
+            <LinearLayout
+                    android:id="@+id/imLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:minWidth="160dp"
+                        android:layout_height="wrap_content"
+                        android:scaleType="fitXY"
+                        app:srcCompat="@mipmap/ic_launcher_round"
+                        android:id="@+id/imageView1"/>
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:minWidth="160dp"
+                        android:layout_height="wrap_content"
+                        android:scaleType="fitXY"
+                        app:srcCompat="@mipmap/ic_launcher_round"
+                        android:id="@+id/imageView2"/>
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:minWidth="160dp"
+                        android:layout_height="wrap_content"
+                        android:scaleType="fitXY"
+                        app:srcCompat="@mipmap/ic_launcher_round"
+                        android:id="@+id/imageView3"/>
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:minWidth="160dp"
+                        android:layout_height="wrap_content"
+                        android:scaleType="fitXY"
+                        app:srcCompat="@mipmap/ic_launcher_round"
+                        android:id="@+id/imageView4"/>
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:minWidth="160dp"
+                        android:layout_height="wrap_content"
+                        android:scaleType="fitXY"
+                        app:srcCompat="@mipmap/ic_launcher_round"
+                        android:id="@+id/imageView5"/>
+            </LinearLayout>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+
 </LinearLayout>

@@ -34,7 +34,7 @@
                 <!--android:targetActivity=".MainActivity">-->
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN"/>-->
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+                <!--<Category android:name="android.intent.Category.LAUNCHER"/>-->
             <!--</intent-filter>-->
         <!--</activity-alias>-->
         <!--<activity-alias-->
@@ -45,7 +45,7 @@
                 <!--android:targetActivity=".MainActivity">-->
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN"/>-->
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+                <!--<Category android:name="android.intent.Category.LAUNCHER"/>-->
             <!--</intent-filter>-->
         <!--</activity-alias>-->
     </application>

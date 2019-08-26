@@ -1,7 +1,6 @@
 package com.boo.ketlint.ui.presenter
 
-import com.boo.ketlint.net.GankNews
-import com.boo.ketlint.net2.domain.Follower
+import com.boo.ketlint.net.Category
 import com.boo.ketlint.net2.rx.RxUtils
 import com.boo.ketlint.net2.rx.subscribeNet
 import com.boo.ketlint.ui.contract.TodayContract
@@ -32,10 +31,10 @@ class TodayPresenter : BaseMvpPresenter<TodayContract.IView, TodayContract.IMode
     private fun getDataFromNet(page: Int) {
         getModel().getToday(page)
             .compose(RxUtils.bindToLifecycle(getMvpView()))
-            .compose(RxUtils.schedulerIO2Main<MutableList<GankNews>>())
+            .compose(RxUtils.schedulerIO2Main<Category>())
             .subscribeNet(getContextEx()) {
                 onNextEx {
-                    getMvpView().showPage(it, page)
+                    getMvpView().showPage(it.results.Android, page)
                     mPage++
                 }
                 onErrorEx { getMvpView().errorPage(it, page) }

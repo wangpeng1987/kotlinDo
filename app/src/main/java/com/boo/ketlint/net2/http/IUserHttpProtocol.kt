@@ -1,5 +1,6 @@
 package com.boo.ketlint.net2.http
 
+import com.boo.ketlint.net.Category
 import com.boo.ketlint.net.GankNews
 import com.boo.ketlint.net2.domain.*
 import io.reactivex.Observable
@@ -13,8 +14,7 @@ interface IUserHttpProtocol {
      * 获取 今日推荐
      * */
     @GET("today")
-    fun getToday(): Observable<MutableList<GankNews>>
-
+    fun getToday(): Observable<Category>
 
 
     /**

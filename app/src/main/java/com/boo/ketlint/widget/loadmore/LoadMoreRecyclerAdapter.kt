@@ -10,7 +10,8 @@ import com.boo.ketlint.R
 /**
  * Created by L on 2017/7/24.
  */
-abstract class LoadMoreRecyclerAdapter<T>(val mContext: Context, var mData: MutableList<T>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+abstract class LoadMoreRecyclerAdapter<T>(val mContext: Context, var mData: MutableList<T>) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         private const val PAGE_DATA_SIZE = 30
@@ -86,6 +87,11 @@ abstract class LoadMoreRecyclerAdapter<T>(val mContext: Context, var mData: Muta
         } else {
             setLoadMoreStatus(LoadMoreHolder.LoadMoreType.LoadMore)
         }
+        notifyDataSetChanged()
+    }
+
+    fun onLoadStatusNoMore() {
+        setLoadMoreStatus(LoadMoreHolder.LoadMoreType.NoMore)
         notifyDataSetChanged()
     }
 

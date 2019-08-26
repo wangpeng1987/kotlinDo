@@ -37,25 +37,25 @@ class MainActivity : BaseActivity() {
 
         newsAll = mutableListOf()
 
-        ImageLoader.clearImageDiskCache(this)
+//        ImageLoader.clearImageDiskCache(this)
 
-        imageView.setOnClickListener({
-            ImageLoader.clearImageDiskCache(this)
-            ImageLoader.load(
-                this,
-                "https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture",
-                imageView,
-                ImageLoader.getRoundRequest(10, RoundedCornersTransformation.CornerType.ALL)
-            )
-        })
-        ImageLoader.load(
-            this,
-            "https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture",
-            imageView,
-            ImageLoader.getRoundRequest(10, RoundedCornersTransformation.CornerType.ALL)
-        )
+//        imageView.setOnClickListener({
+//            ImageLoader.clearImageDiskCache(this)
+//            ImageLoader.load(
+//                this,
+//                "https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture",
+//                imageView,
+//                ImageLoader.getRoundRequest(10, RoundedCornersTransformation.CornerType.ALL)
+//            )
+//        })
+//        ImageLoader.load(
+//            this,
+//            "https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture",
+//            imageView,
+//            ImageLoader.getRoundRequest(10, RoundedCornersTransformation.CornerType.ALL)
+//        )
 
-        recylerview.setListener(object : RecyclerListener {
+        recycler_view.setListener(object : RecyclerListener {
             override fun loadMore() {
                 if (news == null || news.isNullOrEmpty()) return
                 if (news!!.size == 0) {
@@ -163,12 +163,12 @@ class MainActivity : BaseActivity() {
         newsAll?.addAll(news!!)
         uiThread {
             //            toast("获取网络数据")
-            recylerview.layoutManager = LinearLayoutManager(this@MainActivity)
+            recycler_view.layoutManager = LinearLayoutManager(this@MainActivity)
             page_layout.setPage(PageState.STATE_SUCCESS)
             //添加Android自带的分割线
-            recylerview.addItemDecoration(DividerItemDecoration(this@MainActivity, DividerItemDecoration.VERTICAL))
+            recycler_view.addItemDecoration(DividerItemDecoration(this@MainActivity, DividerItemDecoration.VERTICAL))
             if (newsAll != null) {
-                recylerview.adapter = GankNewsAdapter(newsAll!!) {
+                recycler_view.adapter = GankNewsAdapter(newsAll!!) {
                     val intent = Intent()
                     intent.setClass(this@MainActivity, WebActivity::class.java)
 //                it.url = "https://wangpeng1987.github.io/AppServer/"
