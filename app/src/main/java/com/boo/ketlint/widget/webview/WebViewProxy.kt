@@ -8,9 +8,10 @@ import android.net.Uri
 import android.net.http.SslError
 import android.os.Build
 import android.text.TextUtils
-import android.webkit.*
 import com.boo.ketlint.BuildConfig
 import com.boo.ketlint.LOGS
+import com.tencent.smtt.export.external.interfaces.*
+import com.tencent.smtt.sdk.*
 
 /**
  * Author:Ljb
@@ -48,6 +49,7 @@ class WebViewProxy(var mContext: Context, private val mWebView: WebView, private
         setting.setRenderPriority(WebSettings.RenderPriority.HIGH)
         setting.setAppCacheEnabled(true)//缓存
         setting.saveFormData = true
+
     }
 
     @SuppressLint("AddJavascriptInterface")
@@ -67,7 +69,13 @@ class WebViewProxy(var mContext: Context, private val mWebView: WebView, private
     private fun initWebChromeClient() {
         mWebView.webChromeClient = object : WebChromeClient() {
 
-            override fun onJsPrompt(view: WebView?, url: String?, message: String?, defaultValue: String?, result: JsPromptResult?): Boolean {
+            override fun onJsPrompt(
+                view: WebView?,
+                url: String?,
+                message: String?,
+                defaultValue: String?,
+                result: JsPromptResult?
+            ): Boolean {
                 return super.onJsPrompt(view, url, message, defaultValue, result)
             }
 
@@ -76,9 +84,11 @@ class WebViewProxy(var mContext: Context, private val mWebView: WebView, private
             }
 
             //配置权限（同样在WebChromeClient中实现）
-            override fun onGeolocationPermissionsShowPrompt(origin: String, callback: GeolocationPermissions.Callback) {
-                callback.invoke(origin, true, true)
-                super.onGeolocationPermissionsShowPrompt(origin, callback)
+            override fun onGeolocationPermissionsShowPrompt(p0: String?, p1: GeolocationPermissionsCallback?) {
+                super.onGeolocationPermissionsShowPrompt(p0, p1)
+                if (p1 != null) {
+                    p1.invoke(p0, true, true)
+                }
             }
 
             override fun onProgressChanged(view: WebView?, newProgress: Int) {
@@ -125,8 +135,14 @@ class WebViewProxy(var mContext: Context, private val mWebView: WebView, private
                 mWebAction?.onPageStarted(view, url, favicon)
             }
 
-            override fun onReceivedSslError(view: WebView?, handler: SslErrorHandler, error: SslError?) {
-                handler.proceed()
+            override fun onReceivedSslError(
+                view: WebView?,
+                handler: SslErrorHandler?,
+                p2: com.tencent.smtt.export.external.interfaces.SslError?
+            ) {
+                if (handler != null) {
+                    handler.proceed()
+                }
             }
 
             override fun onPageFinished(view: WebView, url: String) {

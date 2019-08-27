@@ -1,12 +1,24 @@
 package com.boo.ketlint.ui.view.fragment
 
-import android.content.Intent
+import android.view.View
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.boo.ketlint.R
-import com.boo.ketlint.net2.domain.Category
-import com.boo.ketlint.ui.contract.TodayContract
-import com.boo.ketlint.ui.presenter.TodayPresenter
+import com.boo.ketlint.adapter.MeResultAdapter
+import com.boo.ketlint.adapter.TodaySearchResultAdapter
+import com.boo.ketlint.net2.domain.MeResult
+import com.boo.ketlint.net2.domain.Result
+import com.boo.ketlint.net2.domain.SearchList
+import com.boo.ketlint.ui.contract.MeContract
+import com.boo.ketlint.ui.contract.SearchContract
+import com.boo.ketlint.ui.presenter.MePresenter
+import com.boo.ketlint.ui.presenter.SearchPresenter
 import com.boo.ketlint.ui.view.act.WebActivity
+import com.ljb.mvp.kotlin.widget.loadmore.LoadMoreRecyclerAdapter
 import com.ljb.page.PageState
+import kotlinx.android.synthetic.main.activity_main_content.*
 import kotlinx.android.synthetic.main.fragment_me.*
 import kotlinx.android.synthetic.main.fragment_today.*
 import mvp.ljb.kt.fragment.BaseMvpFragment
@@ -14,40 +26,73 @@ import mvp.ljb.kt.fragment.BaseMvpFragment
 /**
  * Created by L on 2017/7/19.
  */
-class MeFragment :  BaseMvpFragment<TodayContract.IPresenter>(), TodayContract.IView {
-    override fun registerPresenter() = TodayPresenter::class.java
+class MeFragment : BaseMvpFragment<MeContract.IPresenter>(), MeContract.IView,
+    LoadMoreRecyclerAdapter.LoadMoreListener, LoadMoreRecyclerAdapter.OnItemClickListener {
 
-    override fun showPage(data: Category, page: Int) {
-        page_layout.setPage(PageState.STATE_SUCCESS)
-    }
-
-    override fun errorPage(t: Throwable, page: Int) {
-        page_layout.setPage(PageState.STATE_ERROR)
-    }
+    private val mAdapter by lazy { MeResultAdapter(activity!!, mutableListOf()) }
 
     override fun getLayoutId() = R.layout.fragment_me
 
-    override fun initView(){
-        tencentBBS.setOnClickListener({
-            val intent = Intent()
-            WebActivity.startActivity(activity!!, "https://www.hupu.com")
-        })
-        github.setOnClickListener({
-            val intent = Intent()
-            WebActivity.startActivity(activity!!, "https://github.com")
-        })
-        juejin.setOnClickListener({
-            val intent = Intent()
-            WebActivity.startActivity(activity!!, "https://www.hupu.com")
-        })
-        csdn.setOnClickListener({
-            val intent = Intent()
-            WebActivity.startActivity(activity!!, "https://www.hupu.com")
-        })
-        hupu.setOnClickListener({
-            val intent = Intent()
-            WebActivity.startActivity(activity!!, "https://www.hupu.com")
-        })
+    override fun registerPresenter() = MePresenter::class.java
+
+    override fun initView() {
+        page_layout_me.setOnPageErrorClickListener { onReload() }
+        recycler_view.apply {
+            val manager = GridLayoutManager(context, 5)
+            manager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                override fun getSpanSize(position: Int): Int {
+                    val itemViewType = mAdapter.getItemViewType(position)
+                    return if (itemViewType == LoadMoreRecyclerAdapter.TYPE_LOAD_MORE) 5 else 1
+                }
+            }
+            layoutManager = manager
+//            addItemDecoration(FollowersDecoration())
+            adapter = mAdapter
+            mAdapter.setOnLoadMoreListener(this@MeFragment)
+            mAdapter.setOnItemClickListener(this@MeFragment)
+        }
+    }
+
+    override fun initData() {
+        getPresenter().onRefresh()
+    }
+
+    override fun onLoadMore() {
+        getPresenter().onLoadMore()
+    }
+
+    private fun onReload() {
+        page_layout_me.setPage(PageState.STATE_LOADING)
+        getPresenter().onRefresh()
+    }
+
+    override fun showPage(data: MutableList<MeResult>) {
+//        if (page == 1) {
+        if (data != null && data.size > 0) {
+            page_layout_me.setPage(PageState.STATE_SUCCESS)
+            mAdapter.mData.clear()
+            mAdapter.mData.addAll(data)
+            mAdapter.onLoadStatus(data)
+        } else {
+            page_layout_me.setPage(PageState.STATE_EMPTY)
+        }
+//        } else {
+//            mAdapter.mData.addAll(data.results)
+        mAdapter.onLoadStatusNoMore()
+//        }
+    }
+
+    override fun errorPage(t: Throwable) {
+//        if (page == 1) {
+        page_layout_me.setPage(PageState.STATE_ERROR)
+//        } else {
+//            mAdapter.onErrorStatus()
+//        }
+    }
+
+    override fun onItemClick(view: View, position: Int) {
+        val itemData = mAdapter.mData[position]
+        WebActivity.startActivity(activity!!, itemData.url)
     }
 
 }

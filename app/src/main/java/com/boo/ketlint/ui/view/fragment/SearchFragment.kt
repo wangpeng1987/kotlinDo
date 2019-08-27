@@ -13,6 +13,7 @@ import com.boo.ketlint.ui.view.act.WebActivity
 import com.ljb.mvp.kotlin.widget.loadmore.LoadMoreRecyclerAdapter
 import com.ljb.page.PageState
 import kotlinx.android.synthetic.main.activity_main_content.*
+import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.fragment_today.*
 import mvp.ljb.kt.fragment.BaseMvpFragment
 
@@ -29,7 +30,7 @@ class SearchFragment : BaseMvpFragment<SearchContract.IPresenter>(), SearchContr
     override fun registerPresenter() = SearchPresenter::class.java
 
     override fun initView() {
-        page_layout.setOnPageErrorClickListener { onReload() }
+        page_layout_search.setOnPageErrorClickListener { onReload() }
         recycler_view.apply {
             recycler_view.layoutManager = LinearLayoutManager(context) as RecyclerView.LayoutManager?
             //添加Android自带的分割线
@@ -51,19 +52,19 @@ class SearchFragment : BaseMvpFragment<SearchContract.IPresenter>(), SearchContr
     }
 
     private fun onReload() {
-        page_layout.setPage(PageState.STATE_LOADING)
+        page_layout_search.setPage(PageState.STATE_LOADING)
         getPresenter().onRefresh()
     }
 
     override fun showPage(data: SearchList, page: Int) {
         if (page == 1) {
             if (data != null && data.results.size > 0) {
-                page_layout.setPage(PageState.STATE_SUCCESS)
+                page_layout_search.setPage(PageState.STATE_SUCCESS)
                 mAdapter.mData.clear()
                 mAdapter.mData.addAll(data.results)
                 mAdapter.onLoadStatus(data.results)
             } else {
-                page_layout.setPage(PageState.STATE_EMPTY)
+                page_layout_search.setPage(PageState.STATE_EMPTY)
             }
         } else {
             mAdapter.mData.addAll(data.results)
@@ -73,7 +74,7 @@ class SearchFragment : BaseMvpFragment<SearchContract.IPresenter>(), SearchContr
 
     override fun errorPage(t: Throwable, page: Int) {
         if (page == 1) {
-            page_layout.setPage(PageState.STATE_ERROR)
+            page_layout_search.setPage(PageState.STATE_ERROR)
         } else {
             mAdapter.onErrorStatus()
         }

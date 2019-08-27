@@ -1,8 +1,10 @@
 package com.boo.ketlint
 
 import android.app.Application
+import android.util.Log
 import com.boo.ketlint.net2.Constant.HTTP_API_DOMAIN
 import com.qmuiteam.qmui.arch.QMUISwipeBackActivityManager
+import com.tencent.smtt.sdk.QbSdk
 import com.umeng.analytics.MobclickAgent
 import com.umeng.commonsdk.UMConfigure
 import net.ljb.kt.HttpConfig
@@ -23,6 +25,27 @@ class KlApplication : Application() {
         //初始化网络库
         initNet()
         initUm()
+
+        QbSdk.initX5Environment(getApplicationContext(), cb);
+        preinitX5WebCore();
+    }
+
+    var cb: QbSdk.PreInitCallback = object : QbSdk.PreInitCallback {
+        override fun onViewInitFinished(arg0: Boolean) {
+            // TODO Auto-generated method stub
+            Log.e("0912", " onViewInitFinished is $arg0")
+        }
+
+        override fun onCoreInitFinished() {
+            // TODO Auto-generated method stub
+        }
+    }
+
+    private fun preinitX5WebCore() {
+        if (!QbSdk.isTbsCoreInited()) {
+            // preinit只需要调用一次，如果已经完成了初始化，那么就直接构造view
+            QbSdk.preInit(this, null)// 设置X5初始化完成的回调接口
+        }
     }
 
     private fun initNet() {

@@ -7,7 +7,7 @@
               android:orientation="vertical">
 
     <com.ljb.page.PageStateLayout
-            android:id="@+id/page_layout"
+            android:id="@+id/page_layout_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:page_content="@layout/activity_main_content"

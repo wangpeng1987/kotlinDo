@@ -6,40 +6,13 @@
               android:background="@color/bg_page"
               android:orientation="vertical">
 
-
-    <ScrollView
+    <com.ljb.page.PageStateLayout
+            android:id="@+id/page_layout_me"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        <LinearLayout android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:orientation="vertical">
-            <Button
-                    android:text="tencent BBS"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tencentBBS"/>
-            <Button
-                    android:text="github"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/github"/>
-            <Button
-                    android:text="掘金"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/juejin"/>
-
-            <Button
-                    android:text="CSDN"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/csdn"/>
-            <Button
-                    android:text="虎扑"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/hupu"/>
-
-        </LinearLayout>
-    </ScrollView>
+            android:layout_height="match_parent"
+            app:page_content="@layout/activity_main_content"
+            app:page_empty="@layout/layout_page_empty"
+            app:page_error="@layout/layout_page_error"
+            app:page_load="@layout/layout_page_load">
+    </com.ljb.page.PageStateLayout>
 </LinearLayout>

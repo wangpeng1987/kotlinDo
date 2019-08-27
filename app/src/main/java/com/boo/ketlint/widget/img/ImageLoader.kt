@@ -49,8 +49,13 @@ object ImageLoader {
     ) {
         if (url == null) return
         checkContext(context)
-        val imgUrl = nvlUrl(url)
-        Glide.with(context).load(imgUrl).apply(request).into(img)
+        if (url.isEmpty()) {
+            Glide.with(context).load(R.drawable.ic_launcher_foreground).diskCacheStrategy(DiskCacheStrategy.NONE).apply(request)
+                .into(img)
+        } else {
+            val imgUrl = nvlUrl(url)
+            Glide.with(context).load(imgUrl).diskCacheStrategy(DiskCacheStrategy.NONE).apply(request).into(img)
+        }
     }
 
 

@@ -18,7 +18,8 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 /**
  * @author
  */
-class TodayAndroidAdapter(mContext: Context, mData: MutableList<Android>) : LoadMoreRecyclerAdapter<Android>(mContext, mData) {
+class TodayAndroidAdapter(mContext: Context, mData: MutableList<Android>) :
+    LoadMoreRecyclerAdapter<Android>(mContext, mData) {
 
     override fun getItemHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder =
         TodayHolder(mLayoutInflater.inflate(R.layout.item_view_list_layout, parent, false))
@@ -226,7 +227,6 @@ class TodayAppAdapter(mContext: Context, mData: MutableList<App>) : LoadMoreRecy
     }
 
 }
-
 
 
 /**
@@ -546,7 +546,6 @@ class Today前端Adapter(mContext: Context, mData: MutableList<前端>) : LoadMo
     }
 
 }
-
 
 
 /**
@@ -872,7 +871,8 @@ class Today福利Adapter(mContext: Context, mData: MutableList<福利>) : LoadMo
 /**
  * @author
  */
-class TodaySearchResultAdapter(mContext: Context, mData: MutableList<Result>) : LoadMoreRecyclerAdapter<Result>(mContext, mData) {
+class TodaySearchResultAdapter(mContext: Context, mData: MutableList<Result>) :
+    LoadMoreRecyclerAdapter<Result>(mContext, mData) {
 
     override fun getItemHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder =
         TodayHolder(mLayoutInflater.inflate(R.layout.item_view_list_layout, parent, false))
@@ -970,6 +970,36 @@ class TodaySearchResultAdapter(mContext: Context, mData: MutableList<Result>) : 
         val imageView3 by lazy { itemView.findViewById<ImageView>(R.id.imageView3) }
         val imageView4 by lazy { itemView.findViewById<ImageView>(R.id.imageView4) }
         val imageView5 by lazy { itemView.findViewById<ImageView>(R.id.imageView5) }
+    }
+
+}
+
+
+/**
+ * @author
+ */
+class MeResultAdapter(mContext: Context, mData: MutableList<MeResult>) :
+    LoadMoreRecyclerAdapter<MeResult>(mContext, mData) {
+
+    override fun getItemHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder =
+        TodayHolder(mLayoutInflater.inflate(R.layout.item_view_list_layout_me, parent, false))
+
+    override fun onBindData(holder: RecyclerView.ViewHolder, position: Int) {
+        if (holder is TodayHolder) {
+            val item = mData[position]
+            ImageLoader.load(
+                mContext,
+                item.images,
+                holder.imageView1,
+                ImageLoader.getRoundRequest(60, RoundedCornersTransformation.CornerType.ALL)
+            )
+            holder.title.text = item.name
+        }
+    }
+
+    class TodayHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val title by lazy { itemView.findViewById<TextView>(R.id.title) }
+        val imageView1 by lazy { itemView.findViewById<ImageView>(R.id.imageView1) }
     }
 
 }

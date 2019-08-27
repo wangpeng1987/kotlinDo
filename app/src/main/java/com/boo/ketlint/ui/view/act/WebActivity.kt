@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.boo.ketlint.ui.view.act
 
 import android.content.ClipboardManager
@@ -7,14 +9,17 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
-import android.webkit.WebView
 import com.boo.ketlint.LOGS
 import com.boo.ketlint.R
 import com.boo.ketlint.ui.contract.WebViewContract
 import com.boo.ketlint.ui.presenter.WebViewPresenter
+import com.boo.ketlint.widget.NoAdWebViewClient
 import com.boo.ketlint.widget.webview.SimpleWebActionCallBack
 import com.boo.ketlint.widget.webview.WebViewProxy
 import com.ljb.page.PageState
+import com.tencent.smtt.sdk.WebChromeClient
+import com.tencent.smtt.sdk.WebSettings
+import com.tencent.smtt.sdk.WebView
 import kotlinx.android.synthetic.main.activity_web.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.layout_web.*
@@ -54,6 +59,30 @@ class WebActivity : BaseMvpActivity<WebViewContract.IPresenter>(), WebViewContra
         iv_back.setOnClickListener { onBackPressed() }
         tv_copy.visibility = View.VISIBLE
         tv_copy.setOnClickListener { toCopy() }
+
+        val webSettings = webview!!.settings
+        //设置支持javaScript脚本语言
+        webSettings.javaScriptEnabled = true
+        webSettings.allowContentAccess = true
+        webSettings.javaScriptCanOpenWindowsAutomatically = true
+        webSettings.mediaPlaybackRequiresUserGesture = true
+        webSettings.builtInZoomControls = true
+        webSettings.setAppCacheEnabled(true)
+        webSettings.setDomStorageEnabled(true)
+        webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH)
+        webSettings.cacheMode = WebSettings.LOAD_DEFAULT
+        webSettings.setGeolocationEnabled(true)
+        webSettings.domStorageEnabled = true
+        webSettings.databaseEnabled = true
+        webSettings.useWideViewPort = true // 关键点
+        webSettings.allowFileAccess = true // 允许访问文件
+        webSettings.setSupportZoom(true) // 支持缩放
+        webSettings.loadWithOverviewMode = true
+        webSettings.pluginState = WebSettings.PluginState.ON
+        webSettings.cacheMode = WebSettings.LOAD_NO_CACHE // 不加载缓存内容
+        webview.webChromeClient = WebChromeClient()
+        webview.webViewClient = NoAdWebViewClient(this, webView = webview)
+
         mProxy = WebViewProxy(this, webview, object : SimpleWebActionCallBack() {
             override fun onReceivedTitle(view: WebView?, title: String?) {
                 if (TextUtils.isEmpty(mTitle)) tv_title.text = title
@@ -66,6 +95,7 @@ class WebActivity : BaseMvpActivity<WebViewContract.IPresenter>(), WebViewContra
 
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
+                mUrl = url
                 page_layout.setPage(PageState.STATE_SUCCESS)
             }
         })
@@ -77,7 +107,8 @@ class WebActivity : BaseMvpActivity<WebViewContract.IPresenter>(), WebViewContra
         // 为了兼容低版本我们这里使用旧版的android.text.ClipboardManager，虽然提示deprecated，但不影响使用。
         val cm = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         // 将文本内容放到系统剪贴板里。
-        cm.setText(mUrl)
+        cm.text = mUrl
+        LOGS.e("WebActivity 链接已写入剪切板: " + mUrl)
         toast("链接已写入剪切板！")
     }
 

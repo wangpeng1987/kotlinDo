@@ -1,10 +1,9 @@
 package com.boo.ketlint.widget.webview
 
 import android.graphics.Bitmap
-import android.webkit.WebResourceError
-import android.webkit.WebResourceRequest
-import android.webkit.WebView
-import com.boo.ketlint.widget.webview.WebActionCallBack
+import com.tencent.smtt.export.external.interfaces.WebResourceError
+import com.tencent.smtt.export.external.interfaces.WebResourceRequest
+import com.tencent.smtt.sdk.WebView
 
 /**
  * Author:Ljb
