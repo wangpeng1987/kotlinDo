@@ -1,10 +1,13 @@
 package com.boo.ketlint.ui.view.fragment
 
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.boo.ketlint.LOGS
 import com.boo.ketlint.R
 import com.boo.ketlint.adapter.MeResultAdapter
 import com.boo.ketlint.adapter.TodaySearchResultAdapter
@@ -51,6 +54,20 @@ class MeFragment : BaseMvpFragment<MeContract.IPresenter>(), MeContract.IView,
             mAdapter.setOnLoadMoreListener(this@MeFragment)
             mAdapter.setOnItemClickListener(this@MeFragment)
         }
+        editText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {//输入后的监听
+                LOGS.e("MeFragment 写入:    " + s)
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {//输入后的监听
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {//输入文字产生变化的监听
+            }
+        })
+        button.setOnClickListener({
+            WebActivity.startActivity(activity!!, editText.text.toString())
+        })
     }
 
     override fun initData() {
