@@ -8,5 +8,6 @@ data class GankNews(
     val type: String,
     var url: String,
     val used: Boolean,
-    val who: String
+    val who: String,
+    val images: MutableList<String>
 )

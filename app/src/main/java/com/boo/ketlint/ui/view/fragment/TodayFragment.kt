@@ -107,30 +107,34 @@ class TodayFragment : BaseMvpFragment<TodayContract.IPresenter>(), TodayContract
     }
 
     override fun onItemClick(view: View, positio: Int) {
-        if (position == 0) {
-            val itemData = mTodayAndroidAdapter.mData[positio]
-            WebActivity.startActivity(activity!!, itemData.url)
-        } else if (position == 1) {
-            val itemData = mTodayAppAdapter.mData[positio]
-            WebActivity.startActivity(activity!!, itemData.url)
-        } else if (position == 2) {
-            val itemData = mTodayIOSAdapter.mData[positio]
-            WebActivity.startActivity(activity!!, itemData.url)
-//        } else if (position == 3) {
-//            val itemData = mToday休息视频Adapter.mData[positio]
-//            WebActivity.startActivity(activity!!, itemData.url)
-        } else if (position == 3) {
-            val itemData = mToday前端Adapter.mData[positio]
-            WebActivity.startActivity(activity!!, itemData.url)
-        } else if (position == 4) {
-            val itemData = mToday拓展资源Adapter.mData[positio]
-            WebActivity.startActivity(activity!!, itemData.url)
-        } else if (position == 5) {
-            val itemData = mToday瞎推荐Adapter.mData[positio]
-            WebActivity.startActivity(activity!!, itemData.url)
-//        } else if (position == 7) {
-//            val itemData = mToday福利Adapter.mData[positio]
-//            WebActivity.startActivity(activity!!, itemData.url)
+        try {
+            if (position == 0) {
+                val itemData = mTodayAndroidAdapter.mData[positio]
+                WebActivity.startActivity(activity!!, itemData.url)
+            } else if (position == 1) {
+                val itemData = mTodayAppAdapter.mData[positio]
+                WebActivity.startActivity(activity!!, itemData.url)
+            } else if (position == 2) {
+                val itemData = mTodayIOSAdapter.mData[positio]
+                WebActivity.startActivity(activity!!, itemData.url)
+    //        } else if (position == 3) {
+    //            val itemData = mToday休息视频Adapter.mData[positio]
+    //            WebActivity.startActivity(activity!!, itemData.url)
+            } else if (position == 3) {
+                val itemData = mToday前端Adapter.mData[positio]
+                WebActivity.startActivity(activity!!, itemData.url)
+            } else if (position == 4) {
+                val itemData = mToday拓展资源Adapter.mData[positio]
+                WebActivity.startActivity(activity!!, itemData.url)
+            } else if (position == 5) {
+                val itemData = mToday瞎推荐Adapter.mData[positio]
+                WebActivity.startActivity(activity!!, itemData.url)
+    //        } else if (position == 7) {
+    //            val itemData = mToday福利Adapter.mData[positio]
+    //            WebActivity.startActivity(activity!!, itemData.url)
+            }
+        } catch (e: Exception) {
+        } finally {
         }
     }
 

@@ -9,7 +9,7 @@
         tools:context=".MainActivity">
 
 
-    <include layout="@layout/layout_common_title" />
+    <!--<include layout="@layout/layout_common_title" />-->
 
     <com.ljb.page.PageStateLayout
             android:id="@+id/page_layout"
