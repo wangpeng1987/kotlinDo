@@ -1,7 +1,6 @@
 package com.boo.ketlint.net2.http
 
-import com.boo.ketlint.net.Category
-import com.boo.ketlint.net.GankNews
+import com.boo.ketlint.net2.domain.Category
 import com.boo.ketlint.net2.domain.*
 import io.reactivex.Observable
 import retrofit2.http.GET
@@ -15,6 +14,12 @@ interface IUserHttpProtocol {
      * */
     @GET("today")
     fun getToday(): Observable<Category>
+
+    /**
+     * 获取分页推荐
+     * */
+    @GET("data/all/30/{page}")
+    fun getAllSeearch(@Path("page") page: Int): Observable<SearchList>
 
 
     /**

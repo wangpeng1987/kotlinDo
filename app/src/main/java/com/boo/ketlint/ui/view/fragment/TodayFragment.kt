@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.boo.ketlint.LOGS
 import com.boo.ketlint.R
 import com.boo.ketlint.adapter.*
-import com.boo.ketlint.net.*
+import com.boo.ketlint.net2.domain.*
 import com.boo.ketlint.ui.contract.TodayContract
 import com.boo.ketlint.ui.presenter.TodayPresenter
 import com.boo.ketlint.ui.view.act.WebActivity

@@ -1,4 +1,4 @@
-package com.boo.ketlint.net
+package com.boo.ketlint.net2.domain
 
 data class Category(
     val category: MutableList<String>,

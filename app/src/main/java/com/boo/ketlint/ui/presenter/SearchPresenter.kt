@@ -1,10 +1,10 @@
 package com.boo.ketlint.ui.presenter
 
-import com.boo.ketlint.net2.domain.Category
+import com.boo.ketlint.net2.domain.SearchList
 import com.boo.ketlint.net2.rx.RxUtils
 import com.boo.ketlint.net2.rx.subscribeNet
-import com.boo.ketlint.ui.contract.TodayContract
-import com.boo.ketlint.ui.model.TodayModel
+import com.boo.ketlint.ui.contract.SearchContract
+import com.boo.ketlint.ui.model.SearchModel
 import mvp.ljb.kt.presenter.BaseMvpPresenter
 import mvp.ljb.kt.presenter.getContextEx
 
@@ -13,11 +13,11 @@ import mvp.ljb.kt.presenter.getContextEx
  * @Date:2019/04/20
  * @Description input description
  **/
-class TodayPresenter : BaseMvpPresenter<TodayContract.IView, TodayContract.IModel>(), TodayContract.IPresenter {
+class SearchPresenter : BaseMvpPresenter<SearchContract.IView, SearchContract.IModel>(), SearchContract.IPresenter {
 
     private var mPage = 1
 
-    override fun registerModel() = TodayModel::class.java
+    override fun registerModel() = SearchModel::class.java
 
     override fun onLoadMore() {
         getDataFromNet(mPage)
@@ -29,9 +29,9 @@ class TodayPresenter : BaseMvpPresenter<TodayContract.IView, TodayContract.IMode
     }
 
     private fun getDataFromNet(page: Int) {
-        getModel().getToday(page)
+        getModel().getAllSeearch(page)
             .compose(RxUtils.bindToLifecycle(getMvpView()))
-            .compose(RxUtils.schedulerIO2Main<Category>())
+            .compose(RxUtils.schedulerIO2Main<SearchList>())
             .subscribeNet(getContextEx()) {
                 onNextEx {
                     getMvpView().showPage(it, page)

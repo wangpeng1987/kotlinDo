@@ -8,8 +8,8 @@
     <string name="appdes">搬砖而已，只是为了方便学习！</string>
 
     <string name="tab1">今日推荐</string>
-    <string name="tab2">搜索推荐</string>
-    <string name="tab3">我</string>
+    <string name="tab2">全推荐</string>
+    <string name="tab3">网站推荐</string>
 
     <string name="net_error">网路错误，请检查网络连接</string>
     <string name="reload">重新加载</string>

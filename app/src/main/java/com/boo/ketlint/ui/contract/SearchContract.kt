@@ -1,6 +1,6 @@
 package com.boo.ketlint.ui.contract
 
-import com.boo.ketlint.net2.domain.Category
+import com.boo.ketlint.net2.domain.SearchList
 import io.reactivex.Observable
 import mvp.ljb.kt.contract.IModelContract
 import mvp.ljb.kt.contract.IPresenterContract
@@ -11,10 +11,10 @@ import mvp.ljb.kt.contract.IViewContract
  * @Date:2019/04/20
  * @Description input description
  **/
-interface TodayContract {
+interface SearchContract {
 
     interface IView : IViewContract {
-        fun showPage(data: Category, page: Int)
+        fun showPage(data: SearchList, page: Int)
         fun errorPage(t: Throwable, page: Int)
     }
 
@@ -24,6 +24,6 @@ interface TodayContract {
     }
 
     interface IModel : IModelContract {
-        fun getToday(page:Int): Observable<Category>
+        fun getAllSeearch(page:Int): Observable<SearchList>
     }
 }
