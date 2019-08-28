@@ -30,6 +30,7 @@ class SearchFragment : BaseMvpFragment<SearchContract.IPresenter>(), SearchContr
     override fun registerPresenter() = SearchPresenter::class.java
 
     override fun initView() {
+        System.gc()
         page_layout_search.setOnPageErrorClickListener { onReload() }
         recycler_view.apply {
             recycler_view.layoutManager = LinearLayoutManager(context) as RecyclerView.LayoutManager?

@@ -24,6 +24,7 @@ class TodayFragment : BaseMvpFragment<TodayContract.IPresenter>(), TodayContract
     override fun registerPresenter() = TodayPresenter::class.java
 
     override fun initView() {
+        System.gc()
 //        stringList.addAll(Arrays.asList(*strArray))
         val fragmentList = ArrayList<Fragment>()
         for (i in Constant.strArrays.indices) {

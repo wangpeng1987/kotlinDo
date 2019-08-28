@@ -49,6 +49,7 @@ class WebActivity : BaseMvpActivity<WebViewContract.IPresenter>(), WebViewContra
     override fun getLayoutId() = R.layout.activity_web
 
     override fun init(savedInstanceState: Bundle?) {
+        System.gc()
         mTitle = intent.getStringExtra(KEY_TITLE)
         mUrl = intent.getStringExtra(KEY_URL)
         LOGS.e("WebActivity : " + mUrl)

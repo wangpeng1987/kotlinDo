@@ -39,6 +39,7 @@ class MeFragment : BaseMvpFragment<MeContract.IPresenter>(), MeContract.IView,
     override fun registerPresenter() = MePresenter::class.java
 
     override fun initView() {
+        System.gc()
         page_layout_me.setOnPageErrorClickListener { onReload() }
         recycler_view.apply {
             val manager = GridLayoutManager(context, 5)
