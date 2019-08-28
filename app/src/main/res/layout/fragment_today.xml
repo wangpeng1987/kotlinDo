@@ -6,81 +6,97 @@
               android:background="@color/bg_page"
               android:orientation="vertical">
 
-    <com.google.android.material.tabs.TabLayout
+    <com.boo.tabloyout.xtablayout.XTabLayout
+            android:id="@+id/tabLayoutFive"
+            app:x_tabMode="scrollable"
+            android:layout_marginTop="15dp"
+            app:x_tabIndicatorAnimation="false"
+            app:x_tabIndicatorRoundRect="true"
             android:layout_width="match_parent"
-            android:id="@+id/tab_title"
-            android:layout_height="wrap_content">
-        <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:minWidth="120dp"
-                android:id="@+id/ti1"
-                android:layout_height="wrap_content"
-                android:text="Android"/>
+            android:layout_height="30dp">
 
-        <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:minWidth="120dp"
-                android:id="@+id/ti2"
-                android:layout_height="wrap_content"
-                android:text="App"/>
+    </com.boo.tabloyout.xtablayout.XTabLayout>
 
-        <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:id="@+id/ti3"
-                android:minWidth="120dp"
-                android:layout_height="wrap_content"
-                android:text="iOS"/>
+    <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
+    <!--<com.google.android.material.tabs.TabLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:id="@+id/tab_title"-->
+            <!--android:layout_height="wrap_content">-->
         <!--<com.google.android.material.tabs.TabItem-->
-                <!--android:id="@+id/ti4"-->
                 <!--android:layout_width="wrap_content"-->
                 <!--android:minWidth="120dp"-->
+                <!--android:id="@+id/ti1"-->
                 <!--android:layout_height="wrap_content"-->
-                <!--android:text="休息视频"/>-->
-
-        <com.google.android.material.tabs.TabItem
-                android:id="@+id/ti5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minWidth="120dp"
-                android:text="前端"/>
-
-        <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:minWidth="120dp"
-                android:id="@+id/ti6"
-                android:layout_height="wrap_content"
-                android:text="拓展资源"/>
-
-        <com.google.android.material.tabs.TabItem
-                android:minWidth="120dp"
-                android:layout_width="wrap_content"
-                android:id="@+id/ti7"
-                android:layout_height="wrap_content"
-                android:text="瞎推荐"/>
+                <!--android:text="Android"/>-->
 
         <!--<com.google.android.material.tabs.TabItem-->
                 <!--android:layout_width="wrap_content"-->
                 <!--android:minWidth="120dp"-->
-                <!--android:id="@+id/ti8"-->
+                <!--android:id="@+id/ti2"-->
                 <!--android:layout_height="wrap_content"-->
-                <!--android:text="福利"/>-->
-    </com.google.android.material.tabs.TabLayout>
+                <!--android:text="App"/>-->
 
-    <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/color_D2D2D2"/>
+        <!--<com.google.android.material.tabs.TabItem-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:id="@+id/ti3"-->
+                <!--android:minWidth="120dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="iOS"/>-->
 
-    <com.ljb.page.PageStateLayout
-            android:id="@+id/page_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:page_content="@layout/activity_main_content"
-            app:page_empty="@layout/layout_page_empty"
-            app:page_error="@layout/layout_page_error"
-            app:page_load="@layout/layout_page_load">
-    </com.ljb.page.PageStateLayout>
+        <!--&lt;!&ndash;<com.google.android.material.tabs.TabItem&ndash;&gt;-->
+                <!--&lt;!&ndash;android:id="@+id/ti4"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:minWidth="120dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:text="休息视频"/>&ndash;&gt;-->
+
+        <!--<com.google.android.material.tabs.TabItem-->
+                <!--android:id="@+id/ti5"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:minWidth="120dp"-->
+                <!--android:text="前端"/>-->
+
+        <!--<com.google.android.material.tabs.TabItem-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:minWidth="120dp"-->
+                <!--android:id="@+id/ti6"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="拓展资源"/>-->
+
+        <!--<com.google.android.material.tabs.TabItem-->
+                <!--android:minWidth="120dp"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:id="@+id/ti7"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="瞎推荐"/>-->
+
+        <!--&lt;!&ndash;<com.google.android.material.tabs.TabItem&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:minWidth="120dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:id="@+id/ti8"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:text="福利"/>&ndash;&gt;-->
+    <!--</com.google.android.material.tabs.TabLayout>-->
+
+    <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0.5dp"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:background="@color/color_D2D2D2"/>-->
+
+    <!--<com.ljb.page.PageStateLayout-->
+            <!--android:id="@+id/page_layout"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--app:page_content="@layout/activity_main_content"-->
+            <!--app:page_empty="@layout/layout_page_empty"-->
+            <!--app:page_error="@layout/layout_page_error"-->
+            <!--app:page_load="@layout/layout_page_load">-->
+    <!--</com.ljb.page.PageStateLayout>-->
 
 </LinearLayout>

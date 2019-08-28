@@ -15,29 +15,29 @@ import mvp.ljb.kt.presenter.getContextEx
  **/
 class TodayPresenter : BaseMvpPresenter<TodayContract.IView, TodayContract.IModel>(), TodayContract.IPresenter {
 
-    private var mPage = 1
+//    private var mPage = 1
 
     override fun registerModel() = TodayModel::class.java
 
-    override fun onLoadMore() {
-        getDataFromNet(mPage)
-    }
-
-    override fun onRefresh() {
-        mPage = 1
-        getDataFromNet(mPage)
-    }
-
-    private fun getDataFromNet(page: Int) {
-        getModel().getToday(page)
-            .compose(RxUtils.bindToLifecycle(getMvpView()))
-            .compose(RxUtils.schedulerIO2Main<Category>())
-            .subscribeNet(getContextEx()) {
-                onNextEx {
-                    getMvpView().showPage(it, page)
-                    mPage++
-                }
-                onErrorEx { getMvpView().errorPage(it, page) }
-            }
-    }
+//    override fun onLoadMore() {
+//        getDataFromNet(mPage)
+//    }
+//
+//    override fun onRefresh() {
+//        mPage = 1
+//        getDataFromNet(mPage)
+//    }
+//
+//    private fun getDataFromNet(page: Int) {
+//        getModel().getToday(page)
+//            .compose(RxUtils.bindToLifecycle(getMvpView()))
+//            .compose(RxUtils.schedulerIO2Main<Category>())
+//            .subscribeNet(getContextEx()) {
+//                onNextEx {
+//                    getMvpView().showPage(it, page)
+//                    mPage++
+//                }
+//                onErrorEx { getMvpView().errorPage(it, page) }
+//            }
+//    }
 }

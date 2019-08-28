@@ -6,20 +6,14 @@
               android:background="@color/bg_page"
               android:orientation="vertical">
 
-
-    <EditText
+    <View
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:id="@+id/editText"/>
-    <Button
-            android:text="打开网址"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/button"
-            android:visibility="visible"/>
+            android:layout_height="0.5dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_D2D2D2"/>
 
     <com.ljb.page.PageStateLayout
-            android:id="@+id/page_layout_me"
+            android:id="@+id/page_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:page_content="@layout/activity_main_content"
@@ -27,4 +21,5 @@
             app:page_error="@layout/layout_page_error"
             app:page_load="@layout/layout_page_load">
     </com.ljb.page.PageStateLayout>
+
 </LinearLayout>

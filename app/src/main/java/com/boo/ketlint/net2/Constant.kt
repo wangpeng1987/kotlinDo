@@ -16,4 +16,7 @@ object Constant {
         const val CODE_INIT = 0x00
     }
 
+
+    val strArrays = arrayOf("Android", "App", "iOS", "前端", "拓展资源", "瞎推荐", "休息视频", "福利")
+
 }
